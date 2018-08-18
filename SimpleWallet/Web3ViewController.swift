@@ -11,10 +11,21 @@ import WebKit
 import WebKitPlus
 
 class Web3ViewController: UIViewController {
-    public lazy var configuration: WKWebViewConfiguration = WKWebViewConfiguration()
-    public lazy var webView: WKWebView = WKWebView(frame: self.view.frame, configuration: self.configuration)
-    public lazy var uiDelegate: WKUIDelegatePlus = WKUIDelegatePlus(parentViewController: self)
-    public lazy var observer: WebViewObserver = WebViewObserver(obserbee: self.webView)
+    lazy var configuration: WKWebViewConfiguration = {
+        let configuration = WKWebViewConfiguration()
+
+        // web3.js をページがロードされるごとにInjectionする
+        let scriptURL = Bundle.main.path(forResource: "web3", ofType: "js")
+        var scriptContent = try! String(contentsOfFile: scriptURL!, encoding: .utf8)
+        let script = WKUserScript(source: scriptContent, injectionTime: .atDocumentStart, forMainFrameOnly: false)
+        configuration.userContentController.addUserScript(script)
+
+        return configuration
+    }()
+
+    lazy var webView: WKWebView = WKWebView(frame: self.view.frame, configuration: self.configuration)
+    lazy var uiDelegate: WKUIDelegatePlus = WKUIDelegatePlus(parentViewController: self)
+    lazy var observer: WebViewObserver = WebViewObserver(obserbee: self.webView)
 
     override func viewDidLoad() {
         super.viewDidLoad()
