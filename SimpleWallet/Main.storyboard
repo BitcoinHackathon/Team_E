@@ -149,10 +149,30 @@
                     <view key="view" contentMode="scaleToFill" id="fbq-Qd-hUb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="fND-a5-VPV">
+                                <rect key="frame" x="0.0" y="44" width="375" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="GTh-Gm-2EU"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="HT3-Tj-HMZ" id="rJ4-eV-SJh"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fND-a5-VPV" firstAttribute="leading" secondItem="ftM-ek-SnS" secondAttribute="leading" id="Fal-Zh-Kkc"/>
+                            <constraint firstItem="fND-a5-VPV" firstAttribute="trailing" secondItem="ftM-ek-SnS" secondAttribute="trailing" id="Fcf-KS-g3D"/>
+                            <constraint firstItem="fND-a5-VPV" firstAttribute="top" secondItem="ftM-ek-SnS" secondAttribute="top" id="ZTS-yZ-WrH"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ftM-ek-SnS"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="P9Y-Zu-A6E"/>
+                    <connections>
+                        <outlet property="searchbar" destination="fND-a5-VPV" id="O58-rI-voY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MYb-XC-9yj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
