@@ -10,6 +10,14 @@ import UIKit
 import WebKit
 import WebKitPlus
 
+enum JS2NativeMessageName: String, CustomStringConvertible {
+    case sendTransaction = "sendTransaction"
+    
+    var description: String {
+        return rawValue
+    }
+}
+
 class Web3ViewController: UIViewController {
     lazy var configuration: WKWebViewConfiguration = {
         let configuration = WKWebViewConfiguration()
@@ -19,6 +27,9 @@ class Web3ViewController: UIViewController {
         var scriptContent = try! String(contentsOfFile: scriptURL!, encoding: .utf8)
         let script = WKUserScript(source: scriptContent, injectionTime: .atDocumentStart, forMainFrameOnly: false)
         configuration.userContentController.addUserScript(script)
+
+        // window.webkit.messageHandlers.sendTransaction.postMessage("{transaction data}") でネイティブコードを呼び出せるようにする
+        configuration.userContentController.add(self, js2NativeMessage: .sendTransaction)
 
         return configuration
     }()
@@ -35,7 +46,7 @@ class Web3ViewController: UIViewController {
         webView.uiDelegate = uiDelegate
         observer.onTitleChanged = { [weak self] in self?.title = $0 }
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         webView.load(URLRequest(url: URL(string: "https://google.co.jp/")!))
@@ -45,16 +56,24 @@ class Web3ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension Web3ViewController: WKScriptMessageHandler {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        guard let name = JS2NativeMessageName(rawValue: message.name) else {
+            return
+        }
+        switch name {
+        case .sendTransaction:
+            if let transaction = message.body as? String {
+                print(transaction)
+            }
+        }
     }
-    */
+}
 
+private extension WKUserContentController {
+    func add(_ scriptMessageHandler: WKScriptMessageHandler, js2NativeMessage message: JS2NativeMessageName) {
+        self.add(scriptMessageHandler, name: message.rawValue)
+    }
 }
