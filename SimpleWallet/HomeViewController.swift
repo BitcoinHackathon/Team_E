@@ -11,7 +11,6 @@ import BitcoinKit
 
 class HomeViewController: UITableViewController {
     
-    var wallet: Wallet?
     var transactions = [CodableTx]()
     
     @IBOutlet weak var qrCodeImageView: UIImageView!
@@ -26,6 +25,8 @@ class HomeViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
         
         guard let _ = AppController.shared.wallet else {
             createWallet()
@@ -39,27 +40,36 @@ class HomeViewController: UITableViewController {
         updateUI()
     }
     
+    @objc func refresh(sender: UIRefreshControl) {
+        updateUI()
+        refreshControl?.endRefreshing()
+    }
+    
     private func updateUI() {
         getAddress()
-        //getBalance()
-        //getTxHistory()
+        getBalance()
+        getTxHistory()
     }
     
     // walletの作成
     private func createWallet() {
-        
-        
-        //AppController.shared.importWallet(wif: wif)
+        let privateKey = PrivateKey(network: .testnet)
+        AppController.shared.importWallet(wif: privateKey.toWIF())
     }
     
     // Addressの表示
     private func getAddress() {
-        
+        if let cashAddress = AppController.shared.wallet?.publicKey.toCashaddr().cashaddr {
+            print("cashAddress = \(cashAddress)")
+            addressLabel.text = cashAddress
+            qrCodeImageView.image = generateVisualCode(address: cashAddress)
+        }
     }
     
     // 残高を確認する
     private func getBalance() {
-        APIClient().getUnspentOutputs(withAddresses: [AppController.shared.wallet!.publicKey.toLegacy().description], completionHandler: { [weak self] (utxos: [UnspentOutput]) in
+        let legacyPubAddressString = AppController.shared.wallet!.publicKey.toLegacy().base58
+        APIClient().getUnspentOutputs(withAddresses: [legacyPubAddressString], completionHandler: { [weak self] (utxos: [UnspentOutput]) in
             let balance = utxos.reduce(0) { $0 + $1.amount }
             DispatchQueue.main.async { self?.balanceLabel.text = "\(balance) tBCH" }
         })
@@ -67,7 +77,8 @@ class HomeViewController: UITableViewController {
     
     // 過去のトランザクションの履歴の取得
     private func getTxHistory() {
-        APIClient().getTransaction(withAddresses: AppController.shared.wallet!.publicKey.toLegacy().description, completionHandler: { [weak self] (transactrions:[CodableTx]) in
+        let legacyPubAddressString = AppController.shared.wallet!.publicKey.toLegacy().base58
+        APIClient().getTransaction(withAddresses: legacyPubAddressString, completionHandler: { [weak self] (transactrions:[CodableTx]) in
             self?.transactions = transactrions
             DispatchQueue.main.async { self?.tableView.reloadData() }
         })

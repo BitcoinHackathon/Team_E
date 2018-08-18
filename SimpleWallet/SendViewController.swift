@@ -11,15 +11,16 @@ import BitcoinKit
 
 class SendViewController: UIViewController {
     
-    @IBAction func
-        sendButtonTapped(_ sender: Any) {
+    @IBAction func sendButtonTapped(_ sender: Any) {
         // 送金をする
-        
+        if let targetLegacyAddress = try? AddressFactory.create("bchtest:qpytf7xczxf2mxa3gd6s30rthpts0tmtgyw8ud2sy3") {
+            sendCoins(toAddress: targetLegacyAddress, amount: 300)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
     }
     
     private func sendCoins(toAddress: Address, amount: Int64) {
