@@ -26,6 +26,7 @@
 		97961E5A21284E8400399815 /* WebKitPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97961E5921284E8400399815 /* WebKitPlus.framework */; };
 		97961E5B21284E8400399815 /* WebKitPlus.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 97961E5921284E8400399815 /* WebKitPlus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		97961E5D2128527700399815 /* Web3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97961E5C2128527700399815 /* Web3ViewController.swift */; };
+		97961E5F21285B1500399815 /* web3.js in Resources */ = {isa = PBXBuildFile; fileRef = 97961E5E21285B1500399815 /* web3.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -63,6 +64,7 @@
 		977224B72127C2CD00F26DBD /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainAccess.framework; path = Carthage/Build/iOS/KeychainAccess.framework; sourceTree = "<group>"; };
 		97961E5921284E8400399815 /* WebKitPlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKitPlus.framework; path = Carthage/Build/iOS/WebKitPlus.framework; sourceTree = "<group>"; };
 		97961E5C2128527700399815 /* Web3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3ViewController.swift; sourceTree = "<group>"; };
+		97961E5E21285B1500399815 /* web3.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = web3.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				97961E5C2128527700399815 /* Web3ViewController.swift */,
 				0C26AB812126C59F00170732 /* Assets.xcassets */,
 				0C26AB832126C59F00170732 /* LaunchScreen.storyboard */,
+				97961E5E21285B1500399815 /* web3.js */,
 			);
 			path = SimpleWallet;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 				0C26AB9B2126C5BB00170732 /* Main.storyboard in Resources */,
 				0C26AB852126C59F00170732 /* LaunchScreen.storyboard in Resources */,
 				0C26AB822126C59F00170732 /* Assets.xcassets in Resources */,
+				97961E5F21285B1500399815 /* web3.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
