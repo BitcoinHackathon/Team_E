@@ -25,6 +25,7 @@
 		977224C42127C7AC00F26DBD /* KeychainAccess.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 977224B72127C2CD00F26DBD /* KeychainAccess.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		97961E5A21284E8400399815 /* WebKitPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97961E5921284E8400399815 /* WebKitPlus.framework */; };
 		97961E5B21284E8400399815 /* WebKitPlus.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 97961E5921284E8400399815 /* WebKitPlus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		97961E5D2128527700399815 /* Web3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97961E5C2128527700399815 /* Web3ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,6 +62,7 @@
 		977224B62127C2CD00F26DBD /* BitcoinKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BitcoinKit.framework; path = Carthage/Build/iOS/BitcoinKit.framework; sourceTree = "<group>"; };
 		977224B72127C2CD00F26DBD /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainAccess.framework; path = Carthage/Build/iOS/KeychainAccess.framework; sourceTree = "<group>"; };
 		97961E5921284E8400399815 /* WebKitPlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKitPlus.framework; path = Carthage/Build/iOS/WebKitPlus.framework; sourceTree = "<group>"; };
+		97961E5C2128527700399815 /* Web3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,19 +99,20 @@
 		0C26AB792126C59E00170732 /* SimpleWallet */ = {
 			isa = PBXGroup;
 			children = (
-				0C26AB7A2126C59E00170732 /* AppDelegate.swift */,
+				0C26AB862126C59F00170732 /* Info.plist */,
+				0C26AB922126C5BB00170732 /* Main.storyboard */,
 				0C26AB8F2126C5BB00170732 /* APIClient.swift */,
 				0C26AB942126C5BB00170732 /* AppController.swift */,
+				0C26AB7A2126C59E00170732 /* AppDelegate.swift */,
 				0C26AB8C2126C5BB00170732 /* Extension.swift */,
 				0C26AB912126C5BB00170732 /* HomeViewController.swift */,
 				0C26AB902126C5BB00170732 /* MockPlayGround.swift */,
 				0C26AB8E2126C5BB00170732 /* SendViewController.swift */,
 				0C26AB932126C5BB00170732 /* Transaction.swift */,
 				0C26AB8D2126C5BB00170732 /* UnspentOutput.swift */,
-				0C26AB922126C5BB00170732 /* Main.storyboard */,
+				97961E5C2128527700399815 /* Web3ViewController.swift */,
 				0C26AB812126C59F00170732 /* Assets.xcassets */,
 				0C26AB832126C59F00170732 /* LaunchScreen.storyboard */,
-				0C26AB862126C59F00170732 /* Info.plist */,
 			);
 			path = SimpleWallet;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C26AB972126C5BB00170732 /* SendViewController.swift in Sources */,
+				97961E5D2128527700399815 /* Web3ViewController.swift in Sources */,
 				0C26AB962126C5BB00170732 /* UnspentOutput.swift in Sources */,
 				0C26AB9C2126C5BB00170732 /* Transaction.swift in Sources */,
 				0C26AB992126C5BB00170732 /* MockPlayGround.swift in Sources */,
