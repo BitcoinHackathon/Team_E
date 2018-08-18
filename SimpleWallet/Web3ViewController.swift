@@ -19,6 +19,8 @@ enum JS2NativeMessageName: String, CustomStringConvertible {
 }
 
 class Web3ViewController: UIViewController {
+    @IBOutlet weak var searchbar: UISearchBar!
+
     lazy var configuration: WKWebViewConfiguration = {
         let configuration = WKWebViewConfiguration()
 
@@ -55,6 +57,26 @@ class Web3ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+}
+
+extension Web3ViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.view.endEditing(true)
+        searchBar.showsCancelButton = true
+        print(searchBar.text ?? "")
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        self.view.endEditing(true)
+        searchBar.text = ""
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.showsCancelButton = true
+        return true
     }
 }
 
