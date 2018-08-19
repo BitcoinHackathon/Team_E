@@ -10,14 +10,35 @@ import UIKit
 import WebKit
 import WebKitPlus
 
+enum JS2NativeMessageName: String, CustomStringConvertible {
+    case sendTransaction = "sendTransaction"
+    
+    var description: String {
+        return rawValue
+    }
+}
+
 class Web3ViewController: UIViewController {
-    
     @IBOutlet weak var searchbar: UISearchBar!
-    
-    public lazy var configuration: WKWebViewConfiguration = WKWebViewConfiguration()
-    public lazy var webView: WKWebView = WKWebView(frame: self.view.frame, configuration: self.configuration)
-    public lazy var uiDelegate: WKUIDelegatePlus = WKUIDelegatePlus(parentViewController: self)
-    public lazy var observer: WebViewObserver = WebViewObserver(obserbee: self.webView)
+
+    lazy var configuration: WKWebViewConfiguration = {
+        let configuration = WKWebViewConfiguration()
+
+        // web3.js をページがロードされるごとにInjectionする
+        let scriptURL = Bundle.main.path(forResource: "web3", ofType: "js")
+        var scriptContent = try! String(contentsOfFile: scriptURL!, encoding: .utf8)
+        let script = WKUserScript(source: scriptContent, injectionTime: .atDocumentStart, forMainFrameOnly: false)
+        configuration.userContentController.addUserScript(script)
+
+        // window.webkit.messageHandlers.sendTransaction.postMessage("{transaction data}") でネイティブコードを呼び出せるようにする
+        configuration.userContentController.add(self, js2NativeMessage: .sendTransaction)
+
+        return configuration
+    }()
+
+    lazy var webView: WKWebView = WKWebView(frame: self.view.frame, configuration: self.configuration)
+    lazy var uiDelegate: WKUIDelegatePlus = WKUIDelegatePlus(parentViewController: self)
+    lazy var observer: WebViewObserver = WebViewObserver(obserbee: self.webView)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +48,7 @@ class Web3ViewController: UIViewController {
         webView.uiDelegate = uiDelegate
         observer.onTitleChanged = { [weak self] in self?.title = $0 }
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         webView.load(URLRequest(url: URL(string: "https://google.co.jp/")!))
@@ -59,3 +80,22 @@ extension Web3ViewController: UISearchBarDelegate {
     }
 }
 
+extension Web3ViewController: WKScriptMessageHandler {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        guard let name = JS2NativeMessageName(rawValue: message.name) else {
+            return
+        }
+        switch name {
+        case .sendTransaction:
+            if let transaction = message.body as? String {
+                print(transaction)
+            }
+        }
+    }
+}
+
+private extension WKUserContentController {
+    func add(_ scriptMessageHandler: WKScriptMessageHandler, js2NativeMessage message: JS2NativeMessageName) {
+        self.add(scriptMessageHandler, name: message.rawValue)
+    }
+}
