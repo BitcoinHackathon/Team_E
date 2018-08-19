@@ -66,12 +66,6 @@ class SendViewController: UIViewController {
         // 4. LockScriptを書いて、TransactionOutputを作成する
         let lockScriptChange = Script(address: changeAddress)!
 
-        // 上のBitcoin Scriptを自分で書いてみよー！
-
-        // OP_RETURNのOutputを作成する
-
-        // OP_CLTVのOutputを作成する
-
         let toOutput = TransactionOutput(value: amount, lockingScript: lockScriptTo.data)
         let changeOutput = TransactionOutput(value: change, lockingScript: lockScriptChange.data)
 
