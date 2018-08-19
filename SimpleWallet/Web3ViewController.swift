@@ -9,8 +9,10 @@
 import UIKit
 import WebKit
 import WebKitPlus
+import BitcoinKit
 
 enum JS2NativeMessageName: String, CustomStringConvertible {
+    case getAddress = "getAddress"
     case sendTransaction = "sendTransaction"
     
     var description: String {
@@ -32,6 +34,7 @@ class Web3ViewController: UIViewController {
         let script = WKUserScript(source: scriptContent, injectionTime: .atDocumentStart, forMainFrameOnly: false)
         configuration.userContentController.addUserScript(script)
 
+        configuration.userContentController.add(self, js2NativeMessage: .getAddress)
         // window.webkit.messageHandlers.sendTransaction.postMessage("{transaction data}") でネイティブコードを呼び出せるようにする
         configuration.userContentController.add(self, js2NativeMessage: .sendTransaction)
 
@@ -124,7 +127,25 @@ extension Web3ViewController: WKScriptMessageHandler {
             if let transaction = message.body as? String {
                 print(transaction)
             }
+        case .getAddress:
+            let cashAddress = AppController.shared.wallet!.publicKey.toCashaddr().base58
+            receive(cashAddress, to: message)
         }
+    }
+
+    func receive(_ string: String, to message: WKScriptMessage) {
+        guard let messages = (message.body as? Dictionary<String, Any>), let promiseId = messages["promiseId"] as? String else {
+            return
+        }
+        webView.evaluateJavaScript("web3.resolvePromise('\(promiseId)\', '\(string)', null)")
+    }
+
+    func receive(_ value: Int64, message: WKScriptMessage) {
+        guard let messages = (message.body as? Dictionary<String, Any>), let promiseId = messages["promiseId"] as? String else {
+            return
+        }
+
+        webView.evaluateJavaScript("web3.resolvePromise('\(promiseId)\', \(String(value)), null)")
     }
 }
 
