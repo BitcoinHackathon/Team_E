@@ -160,11 +160,19 @@
                                     <outlet property="delegate" destination="HT3-Tj-HMZ" id="rJ4-eV-SJh"/>
                                 </connections>
                             </searchBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MZ9-2i-2PP">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="MZ9-2i-2PP" firstAttribute="leading" secondItem="fbq-Qd-hUb" secondAttribute="leading" id="460-5q-I8b"/>
+                            <constraint firstItem="fND-a5-VPV" firstAttribute="top" secondItem="MZ9-2i-2PP" secondAttribute="bottom" id="8Fk-W0-Exs"/>
+                            <constraint firstItem="MZ9-2i-2PP" firstAttribute="top" secondItem="fbq-Qd-hUb" secondAttribute="top" id="Bfv-8I-5mH"/>
                             <constraint firstItem="fND-a5-VPV" firstAttribute="leading" secondItem="ftM-ek-SnS" secondAttribute="leading" id="Fal-Zh-Kkc"/>
                             <constraint firstItem="fND-a5-VPV" firstAttribute="trailing" secondItem="ftM-ek-SnS" secondAttribute="trailing" id="Fcf-KS-g3D"/>
+                            <constraint firstAttribute="trailing" secondItem="MZ9-2i-2PP" secondAttribute="trailing" id="QN2-5R-zE4"/>
                             <constraint firstItem="fND-a5-VPV" firstAttribute="top" secondItem="ftM-ek-SnS" secondAttribute="top" id="ZTS-yZ-WrH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ftM-ek-SnS"/>
@@ -176,7 +184,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MYb-XC-9yj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-370" y="808"/>
+            <point key="canvasLocation" x="-370.39999999999998" y="807.63546798029563"/>
         </scene>
         <!--Modal View Controller-->
         <scene sceneID="0mz-IJ-fX7">

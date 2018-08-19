@@ -21,6 +21,8 @@ enum JS2NativeMessageName: String, CustomStringConvertible {
 class Web3ViewController: UIViewController {
     @IBOutlet weak var searchbar: UISearchBar!
 
+    fileprivate var previousSearchText = ""
+    
     lazy var configuration: WKWebViewConfiguration = {
         let configuration = WKWebViewConfiguration()
 
@@ -44,14 +46,20 @@ class Web3ViewController: UIViewController {
         super.viewDidLoad()
 
         webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.allowsBackForwardNavigationGestures = true
         view.insertSubview(webView, at: 0)
         webView.uiDelegate = uiDelegate
         observer.onTitleChanged = { [weak self] in self?.title = $0 }
+        observer.onURLChanged = { [weak self] url in
+            self?.searchbar.text = url?.absoluteString
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        webView.load(URLRequest(url: URL(string: "https://google.co.jp/")!))
+        let googleUrl = "https://google.co.jp/"
+        webView.load(URLRequest(url: URL(string: googleUrl)!))
+        previousSearchText = googleUrl
     }
 
     override func didReceiveMemoryWarning() {
@@ -84,17 +92,23 @@ extension Web3ViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
         searchBar.showsCancelButton = true
+
         print(searchBar.text ?? "")
-        showModalViewController()
+        if let url = URL(string: searchBar.text ?? "") {
+            webView.load(URLRequest(url: url))
+        } else {
+            searchBar.text = previousSearchText
+        }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
         self.view.endEditing(true)
-        searchBar.text = ""
+        searchBar.text = previousSearchText
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        previousSearchText = searchBar.text ?? ""
         searchBar.showsCancelButton = true
         return true
     }
