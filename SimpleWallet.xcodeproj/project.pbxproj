@@ -27,6 +27,7 @@
 		97961E5B21284E8400399815 /* WebKitPlus.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 97961E5921284E8400399815 /* WebKitPlus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		97961E5D2128527700399815 /* Web3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97961E5C2128527700399815 /* Web3ViewController.swift */; };
 		DE94B06D21286212003DE14B /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE94B06C21286212003DE14B /* ModalViewController.swift */; };
+		DE94B0702128E239003DE14B /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE94B06F2128E239003DE14B /* CustomView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -65,6 +66,7 @@
 		97961E5921284E8400399815 /* WebKitPlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKitPlus.framework; path = Carthage/Build/iOS/WebKitPlus.framework; sourceTree = "<group>"; };
 		97961E5C2128527700399815 /* Web3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3ViewController.swift; sourceTree = "<group>"; };
 		DE94B06C21286212003DE14B /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		DE94B06F2128E239003DE14B /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				0C26AB812126C59F00170732 /* Assets.xcassets */,
 				0C26AB832126C59F00170732 /* LaunchScreen.storyboard */,
 				DE94B06C21286212003DE14B /* ModalViewController.swift */,
+				DE94B06F2128E239003DE14B /* CustomView.swift */,
 			);
 			path = SimpleWallet;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 				0C26AB992126C5BB00170732 /* MockPlayGround.swift in Sources */,
 				0C26AB7B2126C59E00170732 /* AppDelegate.swift in Sources */,
 				0C26AB9D2126C5BB00170732 /* AppController.swift in Sources */,
+				DE94B0702128E239003DE14B /* CustomView.swift in Sources */,
 				0C26AB982126C5BB00170732 /* APIClient.swift in Sources */,
 				0C26AB9A2126C5BB00170732 /* HomeViewController.swift in Sources */,
 				0C26AB952126C5BB00170732 /* Extension.swift in Sources */,
