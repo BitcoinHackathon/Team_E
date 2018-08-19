@@ -28,11 +28,6 @@ class HomeViewController: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
         
-        guard let _ = AppController.shared.wallet else {
-            createWallet()
-            return
-        }
-        
         //print("Mock result:", MockPlayGround().verifyScript())
     }
     
@@ -49,12 +44,6 @@ class HomeViewController: UITableViewController {
         getAddress()
         getBalance()
         getTxHistory()
-    }
-    
-    // walletの作成
-    private func createWallet() {
-        let privateKey = PrivateKey(network: .testnet)
-        AppController.shared.importWallet(wif: privateKey.toWIF())
     }
     
     // Addressの表示

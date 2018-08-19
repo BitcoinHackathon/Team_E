@@ -123,11 +123,11 @@
             </objects>
             <point key="canvasLocation" x="1412" y="34.729064039408868"/>
         </scene>
-        <!--Item-->
+        <!--Wallet-->
         <scene sceneID="aLY-hX-kaa">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tNV-jU-EQI" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="GUo-AP-ev4"/>
+                    <tabBarItem key="tabBarItem" title="Wallet" image="wallet30" id="GUo-AP-ev4"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dvZ-sa-dui">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -142,7 +142,7 @@
             </objects>
             <point key="canvasLocation" x="-370.39999999999998" y="35.467980295566505"/>
         </scene>
-        <!--Item 2-->
+        <!--Browser-->
         <scene sceneID="RVU-OM-tol">
             <objects>
                 <viewController id="HT3-Tj-HMZ" customClass="Web3ViewController" customModule="SimpleWallet" customModuleProvider="target" sceneMemberID="viewController">
@@ -177,7 +177,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ftM-ek-SnS"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="P9Y-Zu-A6E"/>
+                    <tabBarItem key="tabBarItem" title="Browser" image="browser30" id="P9Y-Zu-A6E"/>
                     <connections>
                         <outlet property="searchbar" destination="fND-a5-VPV" id="O58-rI-voY"/>
                     </connections>
@@ -398,4 +398,8 @@
             <point key="canvasLocation" x="-1903" y="59"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="browser30" width="30" height="30"/>
+        <image name="wallet30" width="30" height="30"/>
+    </resources>
 </document>
