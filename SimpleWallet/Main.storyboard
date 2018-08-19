@@ -178,6 +178,163 @@
             </objects>
             <point key="canvasLocation" x="-370" y="808"/>
         </scene>
+        <!--Modal View Controller-->
+        <scene sceneID="0mz-IJ-fX7">
+            <objects>
+                <viewController storyboardIdentifier="ModalViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="djq-Zm-MeI" customClass="ModalViewController" customModule="SimpleWallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RjM-IJ-eI1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="onB-Nl-1l2">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="108"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="署名リクエスト" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L6Z-0A-7Fw">
+                                        <rect key="frame" x="8" y="52" width="359" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="12X-oe-0ZT"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.91764705882352937" green="0.92941176470588238" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="L6Z-0A-7Fw" firstAttribute="leading" secondItem="onB-Nl-1l2" secondAttribute="leading" constant="8" id="678-yy-PDf"/>
+                                    <constraint firstAttribute="height" constant="108" id="Z1j-Ww-60c"/>
+                                    <constraint firstAttribute="trailing" secondItem="L6Z-0A-7Fw" secondAttribute="trailing" constant="8" id="cFH-Ls-qPc"/>
+                                    <constraint firstAttribute="bottom" secondItem="L6Z-0A-7Fw" secondAttribute="bottom" constant="8" id="ik9-PV-gKX"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U62-72-wt9" customClass="CustomView" customModule="SimpleWallet" customModuleProvider="target">
+                                <rect key="frame" x="16" y="184" width="343" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmZ-6r-bgM">
+                                        <rect key="frame" x="8" y="8" width="327" height="84"/>
+                                        <string key="text">あなたに署名が
+リクエストされています</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.91764705882352937" green="0.92941176470588238" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="HzJ-Im-sqN"/>
+                                    <constraint firstItem="dmZ-6r-bgM" firstAttribute="leading" secondItem="U62-72-wt9" secondAttribute="leading" constant="8" id="Uq3-Ss-aT8"/>
+                                    <constraint firstItem="dmZ-6r-bgM" firstAttribute="top" secondItem="U62-72-wt9" secondAttribute="top" constant="8" id="gGS-Og-y0Z"/>
+                                    <constraint firstAttribute="trailing" secondItem="dmZ-6r-bgM" secondAttribute="trailing" constant="8" id="kIT-W8-0Xt"/>
+                                    <constraint firstAttribute="bottom" secondItem="dmZ-6r-bgM" secondAttribute="bottom" constant="8" id="rgo-7g-2gS"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="balance" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQ2-iU-JuF">
+                                <rect key="frame" x="239" y="116" width="120" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="b83-ka-goY"/>
+                                    <constraint firstAttribute="height" constant="60" id="fwg-p2-IMj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="5zs-H8-xSv">
+                                <rect key="frame" x="16" y="302" width="343" height="54"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ba7-dQ-ihQ" customClass="CustomButton" customModule="SimpleWallet" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="163.66666666666666" height="54"/>
+                                        <state key="normal" title="キャンセル">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="tappedCancel:" destination="djq-Zm-MeI" eventType="touchUpInside" id="EL8-K8-Npe"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nTY-Bq-HIK" customClass="CustomButton" customModule="SimpleWallet" customModuleProvider="target">
+                                        <rect key="frame" x="179.66666666666663" y="0.0" width="163.33333333333337" height="54"/>
+                                        <state key="normal" title="署名"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.79607843137254897" green="0.86274509803921573" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="tappedOK:" destination="djq-Zm-MeI" eventType="touchUpInside" id="U8G-12-2ms"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="nTY-Bq-HIK" firstAttribute="top" secondItem="5zs-H8-xSv" secondAttribute="top" id="6s2-Gd-MCg"/>
+                                    <constraint firstAttribute="height" constant="54" id="DqT-bu-uO1"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ba7-dQ-ihQ" secondAttribute="bottom" id="EVC-su-jlK"/>
+                                    <constraint firstItem="Ba7-dQ-ihQ" firstAttribute="top" secondItem="5zs-H8-xSv" secondAttribute="top" id="P1h-m5-N5t"/>
+                                    <constraint firstAttribute="trailing" secondItem="nTY-Bq-HIK" secondAttribute="trailing" id="Y44-T0-y6a"/>
+                                    <constraint firstAttribute="bottom" secondItem="nTY-Bq-HIK" secondAttribute="bottom" id="YyS-Rc-iGW"/>
+                                    <constraint firstItem="Ba7-dQ-ihQ" firstAttribute="leading" secondItem="5zs-H8-xSv" secondAttribute="leading" id="iHl-wd-wks"/>
+                                </constraints>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vN9-hv-jlb">
+                                <rect key="frame" x="16" y="116" width="215" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="1ZT-IE-zaw"/>
+                                </constraints>
+                                <string key="text">アカウント: 
+メインネット1</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qpZ-wk-TyO" firstAttribute="trailing" secondItem="5zs-H8-xSv" secondAttribute="trailing" constant="16" id="6Ma-1Q-MHD"/>
+                            <constraint firstItem="oQ2-iU-JuF" firstAttribute="leading" secondItem="vN9-hv-jlb" secondAttribute="trailing" constant="8" id="FP8-Ar-eBP"/>
+                            <constraint firstItem="U62-72-wt9" firstAttribute="leading" secondItem="qpZ-wk-TyO" secondAttribute="leading" constant="16" id="FgO-if-N1k"/>
+                            <constraint firstItem="qpZ-wk-TyO" firstAttribute="trailing" secondItem="U62-72-wt9" secondAttribute="trailing" constant="16" id="QDZ-Q4-p54"/>
+                            <constraint firstItem="vN9-hv-jlb" firstAttribute="leading" secondItem="qpZ-wk-TyO" secondAttribute="leading" constant="16" id="Qct-ZI-P2O"/>
+                            <constraint firstItem="oQ2-iU-JuF" firstAttribute="top" secondItem="onB-Nl-1l2" secondAttribute="bottom" constant="8" id="RXh-m5-g0E"/>
+                            <constraint firstItem="qpZ-wk-TyO" firstAttribute="trailing" secondItem="oQ2-iU-JuF" secondAttribute="trailing" constant="16" id="bGR-Ty-tDJ"/>
+                            <constraint firstItem="onB-Nl-1l2" firstAttribute="leading" secondItem="qpZ-wk-TyO" secondAttribute="leading" id="hPb-ho-ynj"/>
+                            <constraint firstItem="U62-72-wt9" firstAttribute="top" secondItem="vN9-hv-jlb" secondAttribute="bottom" constant="8" id="jtN-CX-nfX"/>
+                            <constraint firstItem="5zs-H8-xSv" firstAttribute="leading" secondItem="qpZ-wk-TyO" secondAttribute="leading" constant="16" id="kxb-HY-aTs"/>
+                            <constraint firstItem="onB-Nl-1l2" firstAttribute="top" secondItem="RjM-IJ-eI1" secondAttribute="top" id="lpa-kG-r5Z"/>
+                            <constraint firstItem="vN9-hv-jlb" firstAttribute="top" secondItem="onB-Nl-1l2" secondAttribute="bottom" constant="8" id="rXB-FB-9ss"/>
+                            <constraint firstItem="5zs-H8-xSv" firstAttribute="top" secondItem="U62-72-wt9" secondAttribute="bottom" constant="18" id="sh6-5U-gQh"/>
+                            <constraint firstItem="U62-72-wt9" firstAttribute="top" secondItem="oQ2-iU-JuF" secondAttribute="bottom" constant="8" id="suT-mF-oRg"/>
+                            <constraint firstItem="onB-Nl-1l2" firstAttribute="trailing" secondItem="qpZ-wk-TyO" secondAttribute="trailing" id="zT3-6T-78B"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qpZ-wk-TyO"/>
+                    </view>
+                    <connections>
+                        <outlet property="balanceLabel" destination="oQ2-iU-JuF" id="y8C-Wa-Y4C"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pR8-MC-nqQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="388" y="805.41871921182269"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="pVS-es-87o">
             <objects>
