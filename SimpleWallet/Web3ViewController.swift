@@ -13,7 +13,7 @@ import BitcoinKit
 
 enum JS2NativeMessageName: String, CustomStringConvertible {
     case getAddress = "getAddress"
-    case sendTransaction = "sendTransaction"
+    case sendTransactionToAddress = "sendTransactionToAddress"
     
     var description: String {
         return rawValue
@@ -36,7 +36,7 @@ class Web3ViewController: UIViewController {
 
         configuration.userContentController.add(self, js2NativeMessage: .getAddress)
         // window.webkit.messageHandlers.sendTransaction.postMessage("{transaction data}") でネイティブコードを呼び出せるようにする
-        configuration.userContentController.add(self, js2NativeMessage: .sendTransaction)
+        configuration.userContentController.add(self, js2NativeMessage: .sendTransactionToAddress)
 
         return configuration
     }()
@@ -123,12 +123,18 @@ extension Web3ViewController: WKScriptMessageHandler {
             return
         }
         switch name {
-        case .sendTransaction:
-            if let transaction = message.body as? String {
-                print(transaction)
+        case .sendTransactionToAddress:
+            if
+                let messages = message.body as? Dictionary<String, Any>,
+                let addressString = messages["cash_address"] as? String,
+                let address = try? Cashaddr(addressString),
+                let value = messages["value"] as? Int64
+            {
+                let vc = ModalViewController.create(address: address, sendValue: value)
+                present(vc, animated: true)
             }
         case .getAddress:
-            let cashAddress = AppController.shared.wallet!.publicKey.toCashaddr().base58
+            let cashAddress = AppController.shared.wallet!.publicKey.toCashaddr().cashaddr
             receive(cashAddress, to: message)
         }
     }

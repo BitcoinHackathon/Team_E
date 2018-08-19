@@ -10,13 +10,28 @@ import UIKit
 import BitcoinKit
 
 class ModalViewController: UIViewController {
+    static func create(address: Address, sendValue: Int64) -> ModalViewController {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: .main)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ModalViewController") as! ModalViewController
+        vc.toAddress = address
+        vc.sendValue = sendValue
+        return vc
+    }
+
+    var toAddress: Address!
+    var sendValue: Int64!
 
     @IBOutlet weak var balanceLabel: UILabel!
-    
+    @IBOutlet weak var toAddressLabel: UILabel!
+    @IBOutlet weak var sendingValueLabel: UILabel!
+
     var didCompleteAction: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        toAddressLabel.text = toAddress.cashaddr
+        sendingValueLabel.text = "\(sendValue!)"
    
         setBalance()
     }
@@ -27,6 +42,7 @@ class ModalViewController: UIViewController {
     }
     
     @IBAction func tappedOK(_ sender: Any) {
+        sendCoins(toAddress: toAddress, amount: sendValue)
         self.dismiss(animated: true, completion: {
             self.didCompleteAction?()
         })
@@ -46,13 +62,11 @@ class ModalViewController: UIViewController {
         })
     }
 
-    struct Output {
-        let value: Int64
-        let lockScriptTo: Script
+    func selectTx(from utxos: [UnspentTransaction], amount: Int64) -> (utxos: [UnspentTransaction], fee: Int64) {
+        return (utxos, 500)
     }
 
-    // 送金額、宛先LockScriptを受け取るとそれに対して必要なInputをかき集めて署名して送る
-    func sendTransaction(to output: Output) {
+    private func sendCoins(toAddress: Address, amount: Int64) {
         // 1. おつり用のアドレスを決める
         let changeAddress: Address = AppController.shared.wallet!.publicKey.toCashaddr()
 
@@ -63,7 +77,7 @@ class ModalViewController: UIViewController {
                 return
             }
             let utxos = unspentOutputs.map { $0.asUnspentTransaction() }
-            let unsignedTx = strongSelf.createUnsignedTx(to: output.lockScriptTo, amount: output.value, changeAddress: changeAddress, utxos: utxos)
+            let unsignedTx = strongSelf.createUnsignedTx(toAddress: toAddress, amount: amount, changeAddress: changeAddress, utxos: utxos)
             let signedTx = strongSelf.signTx(unsignedTx: unsignedTx, keys: [AppController.shared.wallet!.privateKey])
             let rawTx = signedTx.serialized().hex
 
@@ -79,11 +93,7 @@ class ModalViewController: UIViewController {
         })
     }
 
-    func selectTx(from utxos: [UnspentTransaction], amount: Int64) -> (utxos: [UnspentTransaction], fee: Int64) {
-        return (utxos, 500)
-    }
-
-    func createUnsignedTx(to lockScriptTo: Script, amount: Int64, changeAddress: Address, utxos: [UnspentTransaction]) -> UnsignedTransaction {
+    func createUnsignedTx(toAddress: Address, amount: Int64, changeAddress: Address, utxos: [UnspentTransaction]) -> UnsignedTransaction {
         // 3. 送金に必要なUTXOの選択
         let (utxos, fee) = selectTx(from: utxos, amount: amount)
         let totalAmount: Int64 = utxos.reduce(0) { $0 + $1.output.value }
@@ -91,7 +101,14 @@ class ModalViewController: UIViewController {
 
 
         // 4. LockScriptを書いて、TransactionOutputを作成する
+        let lockScriptTo = Script(address: toAddress)!
         let lockScriptChange = Script(address: changeAddress)!
+
+        // 上のBitcoin Scriptを自分で書いてみよー！
+
+        // OP_RETURNのOutputを作成する
+
+        // OP_CLTVのOutputを作成する
 
         let toOutput = TransactionOutput(value: amount, lockingScript: lockScriptTo.data)
         let changeOutput = TransactionOutput(value: change, lockingScript: lockScriptChange.data)
@@ -103,7 +120,7 @@ class ModalViewController: UIViewController {
     }
 
     // 6. 署名する
-    public func signTx(unsignedTx: UnsignedTransaction, keys: [PrivateKey]) -> Transaction {
+    func signTx(unsignedTx: UnsignedTransaction, keys: [PrivateKey]) -> Transaction {
         var inputsToSign = unsignedTx.tx.inputs
         var transactionToSign: Transaction {
             return Transaction(version: unsignedTx.tx.version, inputs: inputsToSign, outputs: unsignedTx.tx.outputs, lockTime: unsignedTx.tx.lockTime)

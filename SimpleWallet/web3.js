@@ -46,6 +46,10 @@ var web3 = {
                                       });
 
             return promise;
+        },
+
+        sendTransactionToAddress: function(cash_address, value) {
+            window.webkit.messageHandlers.sendTransactionToAddress.postMessage({cash_address: cash_address, value: value})
         }
     },
 };
