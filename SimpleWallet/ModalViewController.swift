@@ -8,13 +8,18 @@
 
 import UIKit
 
+
+
 class ModalViewController: UIViewController {
 
+    @IBOutlet weak var balanceLabel: UILabel!
+    
+    var didCompleteAction: (() -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
-        
+   
+        setBalance()
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,18 +27,22 @@ class ModalViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    fileprivate func setAddress() {
-        if let cashAddress = AppController.shared.wallet?.publicKey.toCashaddr().cashaddr {
-//            cashAddress
-        }
+    @IBAction func tappedOK(_ sender: Any) {
+        self.dismiss(animated: true, completion: {
+            self.didCompleteAction?()
+        })
+    }
+    
+    @IBAction func tappedCancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     fileprivate func setBalance() {
-        let legacyPubAddressString = AppController.shared.wallet!.publicKey.toLegacy().base58
+        guard let legacyPubAddressString = AppController.shared.wallet?.publicKey.toLegacy().base58 else { return }
         APIClient().getUnspentOutputs(withAddresses: [legacyPubAddressString], completionHandler: { [weak self] (utxos: [UnspentOutput]) in
             let balance = utxos.reduce(0) { $0 + $1.amount }
             DispatchQueue.main.async {
-//                "\(balance) tBCH"
+                self?.balanceLabel.text = "残高:\n　\(balance) tBCH"
             }
         })
     }

@@ -9,20 +9,38 @@
 import Foundation
 import UIKit
 
-@IBDesignable class CustomButton: UIButton {
+@IBDesignable class CustomView: UIView {
     
     @IBInspectable var cornerRadius: CGFloat = 0.0
-    @IBInspectable var borderColor: UIColor = UIColor.clearColor()
+    @IBInspectable var borderColor: UIColor = UIColor.clear
     @IBInspectable var borderWidth: CGFloat = 0.0
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         
         self.layer.cornerRadius = cornerRadius
         self.clipsToBounds = (cornerRadius > 0)
         
-        self.layer.borderColor = borderColor.CGColor
+        self.layer.borderColor = borderColor.cgColor
         self.layer.borderWidth = borderWidth
         
-        super.drawRect(rect)
+        super.draw(rect)
+    }
+}
+
+@IBDesignable class CustomButton: UIButton {
+    
+    @IBInspectable var cornerRadius: CGFloat = 0.0
+    @IBInspectable var borderColor: UIColor = UIColor.clear
+    @IBInspectable var borderWidth: CGFloat = 0.0
+    
+    override func draw(_ rect: CGRect) {
+        
+        self.layer.cornerRadius = cornerRadius
+        self.clipsToBounds = (cornerRadius > 0)
+        
+        self.layer.borderColor = borderColor.cgColor
+        self.layer.borderWidth = borderWidth
+        
+        super.draw(rect)
     }
 }

@@ -37,6 +37,25 @@ class Web3ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    fileprivate func showModalViewController() {
+        if let modalVC = storyboard?.instantiateViewController(withIdentifier: "ModalViewController") as? ModalViewController {
+            modalVC.didCompleteAction = {
+                self.showAlertControllert(with: "署名が完了しました。")
+            }
+            self.present(modalVC, animated: true, completion: nil)
+        }
+    }
+    
+    fileprivate func showAlertControllert(with titleText: String) {
+        let alert = UIAlertController(title: titleText, message: "", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler:{
+            (action: UIAlertAction!) -> Void in
+            print("OKが押された")
+        })
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 extension Web3ViewController: UISearchBarDelegate {
@@ -45,6 +64,7 @@ extension Web3ViewController: UISearchBarDelegate {
         self.view.endEditing(true)
         searchBar.showsCancelButton = true
         print(searchBar.text ?? "")
+        showModalViewController()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
